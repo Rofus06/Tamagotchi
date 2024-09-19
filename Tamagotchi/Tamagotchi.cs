@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 
 public class Tamagotchi
 {
@@ -7,20 +6,21 @@ public class Tamagotchi
     private int boredom = 0; //startar med 0
     private List<string> words = new List<string>() {"Hello thanks for talking with me."}; //Om 2 är "selected" då säger den "Hello thanks for talking with me."
     private bool isAlive = true; //Alive in the beginning
-    public string Name { get; set; }
+    public string Name { get; set; } //Name of the person
 
-    // Konstruktor
+    // Uses names of Tamagotchi to know who is who
     public Tamagotchi(string name)
     {
         Name = name;
     }
 
-    // Metod för att mata Tamagotchin
+    // Förbättrad Feed() med slumpmässig hungerreduktion
     public void Feed()
     {
-        hunger -= 2;
+        int foodAmount = new Random().Next(1, 5);  // Slumpar mellan 1 och 4 hur mycket -huner man får
+        hunger -= foodAmount;
         if (hunger < 0) hunger = 0;
-        Console.WriteLine($" [{Name}] eats and becomes less hungry.");
+        Console.WriteLine($" [{Name}] eats and reduces hunger by {foodAmount}.");
     }
 
     // Tick() ökar hunger och boredom
@@ -46,7 +46,8 @@ public class Tamagotchi
         return isAlive;
     }
 
-    public void Hi()
+    public void Talk() // Talk to the Tamagotchi
+
     {
         if (words.Count > 0)
         {
